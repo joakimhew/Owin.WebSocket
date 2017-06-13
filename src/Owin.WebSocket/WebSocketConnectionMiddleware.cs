@@ -10,16 +10,16 @@ namespace Owin.WebSocket
     public class WebSocketConnectionMiddleware<T> : OwinMiddleware where T : WebSocketConnection
     {
         private readonly Regex mMatchPattern;
-        private readonly IServiceLocator mServiceLocator;
-        
-        public WebSocketConnectionMiddleware(OwinMiddleware next, IServiceLocator locator)
-            : base(next)
+        private readonly WebSocketConnection mWebSocketConnection;
+
+        public WebSocketConnectionMiddleware(OwinMiddleware next, WebSocketConnection webSocketConnection)
+            :base(next)
         {
-            mServiceLocator = locator;
+            mWebSocketConnection = webSocketConnection;
         }
 
-        public WebSocketConnectionMiddleware(OwinMiddleware next, IServiceLocator locator, Regex matchPattern)
-            : this(next, locator)
+          public WebSocketConnectionMiddleware(OwinMiddleware next, WebSocketConnection webSocketConnection, Regex matchPattern)
+            :this(next, webSocketConnection)
         {
             mMatchPattern = matchPattern;
         }
@@ -41,14 +41,8 @@ namespace Owin.WebSocket
                     matches.Add(name, value.Value);
                 }
             }
-            
-            T socketConnection;
-            if(mServiceLocator == null)
-                socketConnection = Activator.CreateInstance<T>();
-            else
-                socketConnection = mServiceLocator.GetInstance<T>();
 
-            return socketConnection.AcceptSocketAsync(context, matches);
+            return mWebSocketConnection.AcceptSocketAsync(context, matches);
         }
     }
 }

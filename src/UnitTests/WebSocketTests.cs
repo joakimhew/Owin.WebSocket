@@ -38,8 +38,8 @@ namespace UnitTests
             WebApp.Start(new StartOptions("http://localhost:8989"), startup =>
             {
                 startup.MapWebSocketRoute<TestConnection>();
-                startup.MapWebSocketRoute<TestConnection>("/ws", sResolver);
-                startup.MapWebSocketPattern<TestConnection>("/captures/(?<capture1>.+)/(?<capture2>.+)", sResolver);
+                //startup.MapWebSocketRoute<TestConnection>("/ws");
+                //startup.MapWebSocketPattern<TestConnection>("/captures/(?<capture1>.+)/(?<capture2>.+)", sResolver);
             });
         }
 
