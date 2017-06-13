@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.WebSocket", "Owin.WebSocket\Owin.WebSocket.csproj", "{B1D742F7-39FA-498C-B22E-1A7A61C301E7}"
 EndProject
@@ -16,18 +16,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8DCED5
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Debug|x64.ActiveCfg = Debug|x64
+		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Debug|x64.Build.0 = Debug|x64
+		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Release|x64.ActiveCfg = Release|x64
+		{B1D742F7-39FA-498C-B22E-1A7A61C301E7}.Release|x64.Build.0 = Release|x64
+		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Debug|x64.ActiveCfg = Debug|x64
+		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Debug|x64.Build.0 = Debug|x64
+		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Release|x64.ActiveCfg = Release|x64
+		{E8AAA2FB-EA74-4120-B0A0-838926422AF1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
