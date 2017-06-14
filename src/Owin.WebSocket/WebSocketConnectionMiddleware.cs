@@ -2,24 +2,24 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Owin;
-using Microsoft.Practices.ServiceLocation;
 using System;
+using Ninject;
 
 namespace Owin.WebSocket
 {
     public class WebSocketConnectionMiddleware<T> : OwinMiddleware where T : WebSocketConnection
     {
         private readonly Regex mMatchPattern;
-        private readonly WebSocketConnection mWebSocketConnection;
+        private readonly IKernel mKernel;
 
-        public WebSocketConnectionMiddleware(OwinMiddleware next, WebSocketConnection webSocketConnection)
+        public WebSocketConnectionMiddleware(OwinMiddleware next, IKernel kernel)
             :base(next)
         {
-            mWebSocketConnection = webSocketConnection;
+            mKernel = kernel;
         }
 
-          public WebSocketConnectionMiddleware(OwinMiddleware next, WebSocketConnection webSocketConnection, Regex matchPattern)
-            :this(next, webSocketConnection)
+          public WebSocketConnectionMiddleware(OwinMiddleware next, IKernel kernel, Regex matchPattern)
+            :this(next, kernel)
         {
             mMatchPattern = matchPattern;
         }
@@ -42,7 +42,20 @@ namespace Owin.WebSocket
                 }
             }
 
-            return mWebSocketConnection.AcceptSocketAsync(context, matches);
+            T socketConnection;
+
+            if(mKernel == null)
+            {
+                socketConnection = Activator.CreateInstance<T>();
+            }
+            else
+            {
+                var all = mKernel.GetAll<T>();
+
+                socketConnection = mKernel.Get<T>();
+            }
+
+            return socketConnection.AcceptSocketAsync(context, matches);
         }
     }
 }

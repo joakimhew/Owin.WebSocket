@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Microsoft.Practices.ServiceLocation;
+using Ninject;
 
 namespace Owin.WebSocket.Extensions
 {
@@ -15,10 +15,10 @@ namespace Owin.WebSocket.Extensions
         /// <param name="app">Owin App</param>
         /// <param name="route">Static URI to map to the hub</param>
         /// <param name="serviceLocator">Service locator to use for getting instances of T</param>
-        public static void MapWebSocketRoute<T>(this IAppBuilder app, string route, WebSocketConnection webSocketConnectionInstance) 
+        public static void MapWebSocketRoute<T>(this IAppBuilder app, string route, IKernel kernel) 
             where T : WebSocketConnection
         {
-            app.Map(route, config => config.Use<WebSocketConnectionMiddleware<T>>(webSocketConnectionInstance));
+            app.Map(route, config => config.Use<WebSocketConnectionMiddleware<T>>(kernel));
         }
 
         /// <summary>
@@ -28,10 +28,10 @@ namespace Owin.WebSocket.Extensions
         /// <param name="app">Owin app</param>        /// 
         /// <param name="regexPatternMatch">Regex pattern of the URI to match.  Capture groups will be sent to the hub on the Arguments property</param>
         /// <param name="serviceLocator">Service locator to use for getting instances of T</param>
-        public static void MapWebSocketPattern<T>(this IAppBuilder app, string regexPatternMatch, WebSocketConnection webSocketConnectionInstance)
+        public static void MapWebSocketPattern<T>(this IAppBuilder app, string regexPatternMatch, IKernel kernel)
             where T : WebSocketConnection
         {
-            app.Use<WebSocketConnectionMiddleware<T>>(webSocketConnectionInstance, new Regex(regexPatternMatch, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            app.Use<WebSocketConnectionMiddleware<T>>(kernel, new Regex(regexPatternMatch, RegexOptions.Compiled | RegexOptions.IgnoreCase));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Owin.WebSocket.Extensions
         /// <typeparam name="T">Type of WebSocketHubConnection</typeparam>
         /// <param name="app">Owin App</param>
         /// <param name="serviceLocator">Service locator to use for getting instances of T</param>
-        public static void MapWebSocketRoute<T>(this IAppBuilder app, WebSocketConnection webSocketConnection)
+        public static void MapWebSocketRoute<T>(this IAppBuilder app, IKernel kernel)
             where T : WebSocketConnection
         {
             var routeAttributes = typeof(T).GetCustomAttributes(typeof(WebSocketRouteAttribute), true);
@@ -50,7 +50,7 @@ namespace Owin.WebSocket.Extensions
 
             foreach (var routeAttribute in routeAttributes.Cast<WebSocketRouteAttribute>())
             {
-                app.Map(routeAttribute.Route, config => config.Use<WebSocketConnectionMiddleware<T>>(webSocketConnection));
+                app.Map(routeAttribute.Route, config => config.Use<WebSocketConnectionMiddleware<T>>(kernel));
             }
         }
 
